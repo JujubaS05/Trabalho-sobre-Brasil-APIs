@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Brasil APIs</title>
+</head>
+<body>
+    <header>
+        <h1>Brasil APIs - CNPJ</h1>
+        <nav>
+            <a href="home.html">HOME</a>
+            <a href="index1.html">ISBN</a>
+            <a href="index2.html">CNPJ</a>
+            <a href="index3.html">IBGE</a>
+        </nav>
+    </header>
+
+    <section>
+        <div id="sec1">
+            <h2>Busque o CNPJ pela Minha Receita que deseja aqui</h2>
+            <input type="number" name="cnpj" id="numCnpj" placeholder="Insira o número do CNPJ">
+            <button onclick="consultaPag()">Consultar</button>
+            <button onclick="limpaPag()">Resetar</button>
+        </div>
+        <br>
+        <hr>
+        <div id="recarregaInfo"></div>
+    </section>
+    <br>
+
+    <footer>| @2024 IFRS - Campus Farroupilha |</footer>
+
+    <script>
+        function consultaPag(){
+            const cnpj = document.getElementById("numCnpj").value;
+            const link = `https://brasilapi.com.br/api/cnpj/v1/${cnpj}`;
+
+            fetch(link, { method:"GET",})
+            .then((resp) => resp.json())
+            .then((data) => { resultConsulta(data) })
+        }
+
+        function resultConsulta(data){
+            var informacao = document.getElementById('recarregaInfo').innerHTML = ''
+
+            if(data.cnpj){
+                informacao += '<h3><mark style="background-color: burlywood;">Dados do CNPJ:</mark></h3>'
+                informacao += '<p><strong>Número de CNPJ:</strong> ' + data.cnpj + '</p>'
+                informacao += '<p><strong>Identificador da matriz filial:</strong> ' + data.identificador_matriz_filial + '</p>'
+                informacao += '<p><strong>Descrição da matriz filial:</strong> ' + data.descricao_matriz_filial + '</p>'
+                informacao += '<p><strong>Razão social:</strong> ' + data.razao_social + '</p>'
+                informacao += '<p><strong>Nome da fantasia:</strong> ' + data.nome_fantasia + '</p>'
+                informacao += '<p><strong>Situção cadastral:</strong> ' + data.data_situacao_cadastral + '</p>'
+                informacao += '<p><strong>Nome da cidade exterior:</strong> ' + data.nome_cidade_exterior + '</p>'
+                informacao += '<p><strong>Código de natureza jurídica:</strong> ' + data.codigo_natureza_juridica + '</p>'
+                informacao += '<p><strong>Data de início da atividade:</strong> ' + data.data_inicio_atividade + '</p>'
+                informacao += '<p><strong>CNAE Fiscal:</strong> ' + data.cnae_fiscal + '</p>'
+                informacao += '<p><strong>Descrição do CNAE Fiscal:</strong> ' + data.cnae_fiscal_descricao + '</p>'
+                informacao += '<p><strong>Descrição do tipo de logradouro</strong> ' + data.descricao_tipo_de_logradouro + '</p>'
+                informacao += '<p><strong>Logradouro:</strong> ' + data.logradouro + '</p>'
+                informacao += '<p><strong>Número:</strong> ' + data.numero + '</p>'
+                informacao += '<p><strong>Complemento:</strong> ' + data.complemento + '</p>'
+                informacao += '<p><strong>Bairro:</strong> ' + data.bairro + '</p>'
+                informacao += '<p><strong>CEP:</strong> ' + data.cep + '</p>'
+                informacao += '<p><strong>UF:</strong> ' + data.uf + '</p>'
+                informacao += '<p><strong>Código do munícipio:</strong> ' + data.codigo_municipio + '</p>'
+                informacao += '<p><strong>Munícipio:</strong> ' + data.municipio + '</p>'
+                informacao += '<p><strong>DDD do telefone 1:</strong> ' + data.ddd_telefone_1 + '</p>'
+            }else{
+                informacao = '<br>Número do CNPJ incorreto! Digite novamente';
+            }
+            document.getElementById('recarregaInfo').innerHTML = informacao; 
+        }
+
+        function limpaPag(){
+            document.getElementById('numCnpj').value = ''
+            document.getElementById('recarregaInfo').innerHTML = ''
+        }
+    </script>
+</body>
+</html>

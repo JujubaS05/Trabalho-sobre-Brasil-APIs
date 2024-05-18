@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Brasil APIs</title>
+</head>
+<body>
+    <header>
+        <h1>Brasil APIs - ISBN</h1>
+        <nav>
+            <a href="home.html">HOME</a>
+            <a href="index1.html">ISBN</a>
+            <a href="index2.html">CNPJ</a>
+            <a href="index3.html">IBGE</a>
+        </nav>
+    </header>
+
+    <section>
+        <div id="sec1">
+            <h2>Consulte o livro que deseja aqui</h2>
+            <input type="number" name="isbn" id="numIsbn" placeholder="Insira o código de barras">
+            <button onclick="consultaPag()">Consultar</button>
+            <button onclick="limpaPag()">Resetar</button>
+        </div>
+        <br>
+        <hr>
+        <div id="recarregaInfo"></div>
+    </section>
+    <br>
+    <footer>| @2024 IFRS - Campus Farroupilha |</footer>
+    <script>
+        function consultaPag(){
+            const isbn = document.getElementById("numIsbn").value;
+            const link = `https://brasilapi.com.br/api/isbn/v1/${isbn}`;
+
+            fetch(link, { method:"GET",})
+            .then((resp) => resp.json())
+            .then((data) => { resultadoConsulta(data) })
+        }
+        
+        function resultadoConsulta(data){
+            var informacao = document.getElementById('recarregaInfo').innerHTML = ''
+
+            if(data.isbn){
+                informacao += '<h3><mark style="background-color: burlywood;">Dados do livro:</mark></h3>'
+                informacao += '<p><strong>Número de ISBN:</strong> ' + data.isbn + '</p>'
+                informacao += '<p><strong>Título:</strong> ' + data.title + '</p>'
+                informacao += '<p><strong>Subtítulo:</strong> ' + data.subtitle + '</p>'
+                informacao += '<p><strong>Autores:</strong> ' + data.authors + '</p>'
+                informacao += '<p><strong>Publicado:</strong> ' + data.publisher + '</p>'
+                informacao += '<p><strong>Sinopse:</strong> ' + data.synopsis + '</p>'
+                informacao += '<p><strong>Quantidade de páginas:</strong> ' + data.page_count + '</p>'
+                informacao += '<p><strong>Ano:</strong> ' + data.year + '</p>'
+                informacao += '<p><strong>Localização:</strong> ' + data.location + '</p>'
+            }else{
+                informacao = '<br>Código de barras incorreto! Digite novamente';
+            }
+            document.getElementById('recarregaInfo').innerHTML = informacao; 
+            //JSON.stringify(data, null, '<br>')
+        }
+
+        function limpaPag(){
+            document.getElementById('numIsbn').value = ''
+            document.getElementById('recarregaInfo').innerHTML = ''
+        }
+
+    </script>
+</body>
+
+</html>

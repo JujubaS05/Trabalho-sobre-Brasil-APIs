@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Brasil APIs</title>
+</head>
+<body>
+    <header>
+        <h1>Brasil APIs - IBGE</h1>
+        <nav>
+            <a href="home.html">HOME</a>
+            <a href="index1.html">ISBN</a>
+            <a href="index2.html">CNPJ</a>
+            <a href="index3.html">IBGE</a>
+            <a href="index4.html">IBGE</a>
+        </nav>
+    </header>
+    
+    <section id="paia">
+        <div id="sec1">
+            <h2>Lista de todos os Estados</h2>
+            <button onclick="consultaPag()" id="estados">Consultar todos os Estados</button>
+            <button onclick="limpaPag()">Resetar</button>
+        </div>
+        <br>
+        <hr>
+        <div id="recarregaInfo"></div>
+    </section>
+    
+    <br>
+
+    <footer>| @2024 IFRS - Campus Farroupilha |</footer>
+
+    <script>
+        function consultaPag(){
+            const link = `https://brasilapi.com.br/api/ibge/uf/v1`;
+
+            fetch(link, { method:"GET" })
+            .then((resp) => resp.json())
+            .then((data) => { resultConsulta(data) })
+        }
+
+        function resultConsulta(data){
+            var informacao = '<h3><mark style="background-color: burlywood;">Todos os Estados:</mark></h3>';
+            informacao += '<ul>';
+            data.forEach(estado => {
+                informacao += '<li><strong>ID:</strong>' + estado.id + '<br><strong>UF:</strong>' + estado.sigla + 
+                    '<br><strong>Estado:</strong>' + estado.nome +'<br><strong>Região:</strong><br>'+'<li id="list"><strong ">ID:</strong>'
+                    + estado.regiao.id +'</li>'+'<li id="list"><strong>Sigla:</strong>'+ estado.regiao.sigla + '</li>'
+                    +'<li id="list"><strong>Nome:</strong>'+ estado.regiao.nome + '</li></li><br>';
+            });
+            informacao += '</ul>';
+            
+            document.getElementById('recarregaInfo').innerHTML = informacao; 
+        }
+
+        function limpaPag(){
+            document.getElementById('recarregaInfo').innerHTML = '';
+        }
+    </script>
+</body>
+</html>

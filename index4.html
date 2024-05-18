@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Brasil APIs</title>
+</head>
+<body>
+    <header>
+        <h1>Brasil APIs - IBGE</h1>
+        <nav>
+            <a href="home.html">HOME</a>
+            <a href="index1.html">ISBN</a>
+            <a href="index2.html">CNPJ</a>
+            <a href="index3.html">IBGE</a>
+            <a href="index4.html">IBGE</a>
+        </nav>
+    </header>
+    
+    <section>
+        <div id="sec1">
+            <h2>Procure o Estado pelo ID ou por sua sigla</h2>
+            <input type="text" name="cnpj" id="numSigla" placeholder="Insira o número ou a sigla do Estado">
+            <button onclick="consultaPag()">Consultar</button>
+            <button onclick="limpaPag()">Resetar</button>
+        </div>
+        <br>
+        <hr>
+        <div id="recarregaInfo"></div>
+    </section>
+
+    <br>
+
+    <footer>| @2024 IFRS - Campus Farroupilha |</footer>
+
+    <script>
+        function consultaPag(){
+            const ibge = document.getElementById("numSigla").value;
+            const link = `https://brasilapi.com.br/api/ibge/uf/v1/${ibge}`;
+
+            fetch(link, { method:"GET",})
+            .then((resp) => resp.json())
+            .then((data) => { resultConsulta(data) })
+        }
+
+        function resultConsulta(data){
+            var informacao = document.getElementById('recarregaInfo').innerHTML = ''
+
+            if(data.id || data.sigla){
+                informacao += '<h3><mark style="background-color: burlywood;">Estado encontrado:</mark></h3>'
+                informacao += '<p><strong>ID:</strong> ' + data.id + '</p>'
+                informacao += '<p><strong>Sigla:</strong> ' + data.sigla + '</p>'
+                informacao += '<p><strong>Estado:</strong> ' + data.nome + '</p>'
+                informacao += '<p><strong>Região:</strong><br>'
+                informacao += '<p id="linha"><strong>ID:</strong>'+ data.regiao.id +'</p>' 
+                informacao += '<p id="linha"><strong>Sigla:</strong>'+ data.regiao.sigla +'</p>'
+                informacao += '<p id="linha"><strong>Nome:</strong>'+ data.regiao.nome +'</p>'
+            }else{
+                informacao = '<br>Número do id ou sigla está incorreto! Digite novamente';
+            }
+            document.getElementById('recarregaInfo').innerHTML = informacao; 
+        }
+
+        function limpaPag(){
+            document.getElementById('numSigla').value = ''
+            document.getElementById('recarregaInfo').innerHTML = ''
+        }
+
+    </script>
+</body>
+</html>
