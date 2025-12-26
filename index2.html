@@ -48,14 +48,14 @@
             if(data.cnpj){
                 informacao += '<h3><mark style="background-color: burlywood;">Dados do CNPJ:</mark></h3>'
                 informacao += '<p><strong>Número de CNPJ:</strong> ' + data.cnpj + '</p>'
-                informacao += '<p><strong>Identificador da matriz filial:</strong> ' + data.identificador_matriz_filial + '</p>'
-                informacao += '<p><strong>Descrição da matriz filial:</strong> ' + data.descricao_matriz_filial + '</p>'
+                informacao += '<p><strong>Identificador (matriz/filial):</strong> ' + data.identificador_matriz_filial + '</p>'
+                informacao += '<p><strong>Descrição (matriz/filial):</strong> ' + data.descricao_identificador_matriz_filial + '</p>'
                 informacao += '<p><strong>Razão social:</strong> ' + data.razao_social + '</p>'
                 informacao += '<p><strong>Nome da fantasia:</strong> ' + data.nome_fantasia + '</p>'
-                informacao += '<p><strong>Situção cadastral:</strong> ' + data.data_situacao_cadastral + '</p>'
+                informacao += '<p><strong>Pais:</strong> ' + data.pais + '</p>'
+                informacao += '<p><strong>Email da empresa:</strong> ' + data.email + '</p>'
                 informacao += '<p><strong>Nome da cidade exterior:</strong> ' + data.nome_cidade_exterior + '</p>'
                 informacao += '<p><strong>Código de natureza jurídica:</strong> ' + data.codigo_natureza_juridica + '</p>'
-                informacao += '<p><strong>Data de início da atividade:</strong> ' + data.data_inicio_atividade + '</p>'
                 informacao += '<p><strong>CNAE Fiscal:</strong> ' + data.cnae_fiscal + '</p>'
                 informacao += '<p><strong>Descrição do CNAE Fiscal:</strong> ' + data.cnae_fiscal_descricao + '</p>'
                 informacao += '<p><strong>Descrição do tipo de logradouro</strong> ' + data.descricao_tipo_de_logradouro + '</p>'
@@ -68,8 +68,13 @@
                 informacao += '<p><strong>Código do munícipio:</strong> ' + data.codigo_municipio + '</p>'
                 informacao += '<p><strong>Munícipio:</strong> ' + data.municipio + '</p>'
                 informacao += '<p><strong>DDD do telefone 1:</strong> ' + data.ddd_telefone_1 + '</p>'
+                informacao += '<p><strong>Código do Munícipio(IBGE):</strong> ' + data.codigo_municipio_ibge + '</p>'
+                informacao += '<p><strong>Data de início da atividade:</strong> ' + data.data_inicio_atividade + '</p>'
+                informacao += '<p><strong>Data da situação cadastral:</strong> ' + data.data_situacao_cadastral + '</p>'
+                informacao += '<p><strong>Situação cadastral:</strong> ' + data.descricao_situacao_cadastral + '</p>'
+                informacao += '<p><strong>Motivo da situação cadastral:</strong> ' + data.descricao_motivo_situacao_cadastral + '</p>'
             }else{
-                informacao = '<br>Número do CNPJ incorreto! Digite novamente';
+                informacao = '<br>Número do CNPJ não identificado! Digite novamente';
             }
             document.getElementById('recarregaInfo').innerHTML = informacao; 
         }
